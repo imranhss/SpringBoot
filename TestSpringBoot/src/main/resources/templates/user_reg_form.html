@@ -1,0 +1,67 @@
+<div th:insert="header.html">...</div>
+<div th:insert="sidebar.html">...</div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1 class="text-center">User Registration</h1>
+
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-md-10 offset-1">
+
+                <div class="card">
+
+                    <div class="card-body mt-3">
+                        <form th:action="@{/user_reg}" th:object="${user}" method="post">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">First Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{firstName}"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Last name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" th:field="*{lastName}"/>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" th:field="*{email}"/>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" th:field="*{password}"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12 text-center">
+                                    <button th:if="${did!=null}" type="submit" class="btn btn-primary">Update</button>
+                                    <button th:if="${did==null}" type="submit" class="btn btn-primary">Submit</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<div th:insert="footer.html">...</div>
