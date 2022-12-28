@@ -7,7 +7,7 @@ public class TestPasswordEncrypt {
     public  static  void main(String[] asd){
 
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-        String regPass="admin1234";
+        String regPass="1234";
         String encPass= encoder.encode(regPass);
         System.out.println(encPass);
 
