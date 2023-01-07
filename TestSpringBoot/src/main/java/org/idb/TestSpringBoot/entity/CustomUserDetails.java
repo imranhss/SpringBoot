@@ -14,6 +14,8 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        // user role-----> USER, ADMIN, SALES
         return null;
     }
 
@@ -43,7 +45,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled() { // Our Task for 7-01-22
         return true;
     }
 }
