@@ -46,6 +46,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() { // Our Task for 7-01-22
-        return true;
+        return u.isEnabled();
     }
 }
