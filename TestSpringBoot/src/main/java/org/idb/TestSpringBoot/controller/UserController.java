@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+    long startTime= 0;
 
     @Autowired
     private IUserRepo repo;
@@ -36,7 +37,8 @@ public class UserController {
 
     @RequestMapping(value = "/user_reg", method = RequestMethod.POST)
     public String userReg(@ModelAttribute("user") User u, Model m) {
-
+        long s=System.currentTimeMillis();
+            startTime+=s+20000;
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encPass = encoder.encode(u.getPassword());
         u.setPassword(encPass);
@@ -67,16 +69,25 @@ public class UserController {
 
         ConfirmationToken confirmationToken=tokenRepository.findByConfirmationToken(token);
         System.out.println(confirmationToken);
-        if(token != null)
-        {
-            User user = repo.findByEmail(confirmationToken.getUser().getEmail());
-            user.setEnabled(true);
-            repo.save(user);
-            m.addAttribute("message","Account Verified" );
+
+
+        if(token != null){
+            long endTime=System.currentTimeMillis();
+            if (startTime>endTime){
+                User user = repo.findByEmail(confirmationToken.getUser().getEmail());
+                user.setEnabled(true);
+                repo.save(user);
+                m.addAttribute("message","Account Verified" );
+
+            }else{
+                System.out.println("Time-----------Out");
+            }
+
 
         }
         else
         {
+
             m.addAttribute("message","The link is invalid or broken!");
 
         }
