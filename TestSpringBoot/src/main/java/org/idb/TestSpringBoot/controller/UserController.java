@@ -53,7 +53,7 @@ public class UserController {
         message.setFrom("info@emranhss.com");
         message.setText("Dear "+u.getFirstName()+" "+u.getLastName());
         message.setText("To confirm your account, please click here :"+
-                "localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+                "http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
 
         emailSenderService.sendEmail(message);
 
