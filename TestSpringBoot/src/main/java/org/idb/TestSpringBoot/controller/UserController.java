@@ -36,14 +36,13 @@ public class UserController {
 
     @RequestMapping(value = "/user_reg", method = RequestMethod.POST)
     public String userReg(@ModelAttribute("user") User u, Model m) {
-        System.out.println("-----------------------------------");
+
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encPass = encoder.encode(u.getPassword());
         u.setPassword(encPass);
         repo.save(u); // come from Repo no service available
 
-        System.out.println("***************************************");
        //  Send validation Email
         ConfirmationToken confirmationToken=new ConfirmationToken(u);
         tokenRepository.save(confirmationToken);
@@ -51,10 +50,10 @@ public class UserController {
         SimpleMailMessage message=new SimpleMailMessage();
         message.setTo(u.getEmail());
         message.setSubject("Confirm Registration");
-        message.setFrom("jeeround51@gmail.com");
+        message.setFrom("info@emranhss.com");
         message.setText("Dear "+u.getFirstName()+" "+u.getLastName());
         message.setText("To confirm your account, please click here :"+
-                "http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+                "localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
 
         emailSenderService.sendEmail(message);
 
@@ -64,8 +63,9 @@ public class UserController {
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
     public  String confirmUserAccount(@RequestParam("token") String token, Model m){
-
+        System.out.println("+++++++++++++++++++++++++++++++++++++");
         ConfirmationToken confirmationToken=tokenRepository.findByconfirmationToken(token);
+        System.out.println(confirmationToken);
         if(token != null)
         {
             User user = repo.findByEmail(confirmationToken.getUser().getEmail());

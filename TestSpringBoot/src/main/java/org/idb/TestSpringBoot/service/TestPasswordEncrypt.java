@@ -12,5 +12,6 @@ public class TestPasswordEncrypt {
         System.out.println(encPass);
 
        // $2a$10$CrmwhLqqpTRajOzeiR/4d./HLCfxozCPh1cWBa2BR1Gk3FW1STV26
+
     }
 }
