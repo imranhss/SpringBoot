@@ -40,21 +40,21 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encPass = encoder.encode(u.getPassword());
         u.setPassword(encPass);
-        String userFullName=u.getFirstName()+" "+u.getLastName();
+        String userFullName = u.getFirstName() + " " + u.getLastName();
         repo.save(u); // come from Repo no service available
 
-       //  Send validation Email
-        ConfirmationToken confirmationToken=new ConfirmationToken(u);
+        //  Send validation Email
+        ConfirmationToken confirmationToken = new ConfirmationToken(u);
         tokenRepository.save(confirmationToken);
 
-        SimpleMailMessage message=new SimpleMailMessage();
+        SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(u.getEmail());
         message.setSubject("Confirm Registration");
         message.setFrom("info@emranhss.com");
-        message.setText("Dear "+userFullName+", ");
-        System.out.println(userFullName+" +++++++++++++++++++++++++++++++++++++++++++++++++++");
-        message.setText("Dear "+userFullName+"\n"+"To confirm your account, please click here :"+
-                "http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+        message.setText("Dear " + userFullName + ", ");
+        System.out.println(userFullName + " +++++++++++++++++++++++++++++++++++++++++++++++++++");
+        message.setText("Dear " + userFullName + "\n" + "To confirm your account, please click here :" +
+                "http://localhost:8082/confirm-account?token=" + confirmationToken.getConfirmationToken());
 
         emailSenderService.sendEmail(message);
 
@@ -62,28 +62,23 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public  String confirmUserAccount(@RequestParam("token") String token, Model m){
+    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    public String confirmUserAccount(@RequestParam("token") String token, Model m) {
 
-        ConfirmationToken confirmationToken=tokenRepository.findByConfirmationToken(token);
-        System.out.println(confirmationToken);
-        if(token != null)
-        {
+        ConfirmationToken confirmationToken = tokenRepository.findByConfirmationToken(token);
+        if (token != null) {
             User user = repo.findByEmail(confirmationToken.getUser().getEmail());
             user.setEnabled(true);
             repo.save(user);
-            m.addAttribute("message","Account Verified" );
+            m.addAttribute("message", "Account Verified");
 
-        }
-        else
-        {
-            m.addAttribute("message","The link is invalid or broken!");
+        } else {
+            m.addAttribute("message", "The link is invalid or broken!");
 
         }
 
         return "redirect:/";
     }
-
 
 
 }
