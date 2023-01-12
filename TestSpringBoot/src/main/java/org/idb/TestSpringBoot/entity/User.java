@@ -23,8 +23,15 @@ public class User {
     private String firstName;
     @Column(length = 30, nullable = false)
     private String lastName;
-
     private boolean isEnabled=false;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id")
+//    )
+//    private Set<Role> roles = new HashSet<>();
 
+    private  String role="USER";
 
 }

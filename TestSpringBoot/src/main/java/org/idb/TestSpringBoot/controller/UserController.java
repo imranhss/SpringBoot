@@ -1,6 +1,7 @@
 package org.idb.TestSpringBoot.controller;
 
 import org.idb.TestSpringBoot.entity.ConfirmationToken;
+import org.idb.TestSpringBoot.entity.Role;
 import org.idb.TestSpringBoot.entity.User;
 import org.idb.TestSpringBoot.repository.IConfirmationTokenRepository;
 import org.idb.TestSpringBoot.repository.IUserRepo;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+
+    long startTime= 0;
 
     @Autowired
     private IUserRepo repo;
@@ -36,6 +39,8 @@ public class UserController {
 
     @RequestMapping(value = "/user_reg", method = RequestMethod.POST)
     public String userReg(@ModelAttribute("user") User u, Model m) {
+        long s=System.currentTimeMillis();
+        startTime+=s+20000;
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encPass = encoder.encode(u.getPassword());
@@ -64,13 +69,20 @@ public class UserController {
 
     @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
     public String confirmUserAccount(@RequestParam("token") String token, Model m) {
+        Role r=new Role();
 
         ConfirmationToken confirmationToken = tokenRepository.findByConfirmationToken(token);
-        if (token != null) {
-            User user = repo.findByEmail(confirmationToken.getUser().getEmail());
-            user.setEnabled(true);
-            repo.save(user);
-            m.addAttribute("message", "Account Verified");
+        if(token != null){
+            long endTime=System.currentTimeMillis();
+            if (startTime>endTime){
+                User user = repo.findByEmail(confirmationToken.getUser().getEmail());
+                user.setEnabled(true);
+                repo.save(user);
+                m.addAttribute("message","Account Verified" );
+
+            }else{
+                System.out.println("Time-----------Out");
+            }
 
         } else {
             m.addAttribute("message", "The link is invalid or broken!");

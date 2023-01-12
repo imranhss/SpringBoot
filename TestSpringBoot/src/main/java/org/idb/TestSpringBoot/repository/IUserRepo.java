@@ -10,4 +10,5 @@ public interface IUserRepo extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.email=?1") // HSQL = Hibernate Structure Query Language
     User findByEmail(String email); // get one row by email
 
+
 }

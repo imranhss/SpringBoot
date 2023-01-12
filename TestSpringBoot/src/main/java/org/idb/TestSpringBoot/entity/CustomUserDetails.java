@@ -1,9 +1,11 @@
 package org.idb.TestSpringBoot.entity;
 
+import org.idb.TestSpringBoot.repository.IUserRepo;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.*;
 
 public class CustomUserDetails implements UserDetails {
     private User u;
@@ -12,11 +14,25 @@ public class CustomUserDetails implements UserDetails {
         this.u = u;
     }
 
+    private IUserRepo repo;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
+        final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(u.getRole());
+
+        return Collections.singletonList(simpleGrantedAuthority);
+
         // user role-----> USER, ADMIN, SALES
-        return null;
+//        Set<Role> roles = u.getRoles();
+//        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//
+//        for (Role role : roles) {
+//            authorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+//
+//        return authorities;
+
     }
 
     @Override

@@ -29,5 +29,11 @@ public class DepartmentController {
         service.saveDep(dep);
         return  "redirect:/departments";
     }
+    @RequestMapping(value = "/403")
+    public  String error(){
+
+        return  "403";
+    }
+
 
 }

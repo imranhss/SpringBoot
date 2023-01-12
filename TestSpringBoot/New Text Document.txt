@@ -1,1 +1,7 @@
 https://stackabuse.com/spring-security-email-verification-registration/
+
+
+
+https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial
+
+
