@@ -69,7 +69,7 @@ public class UserController {
 
     @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
     public String confirmUserAccount(@RequestParam("token") String token, Model m) {
-        Role r=new Role();
+
 
         ConfirmationToken confirmationToken = tokenRepository.findByConfirmationToken(token);
         if(token != null){
@@ -77,6 +77,7 @@ public class UserController {
             if (startTime>endTime){
                 User user = repo.findByEmail(confirmationToken.getUser().getEmail());
                 user.setEnabled(true);
+                user.setRole("USER");
                 repo.save(user);
                 m.addAttribute("message","Account Verified" );
 

@@ -32,6 +32,6 @@ public class User {
 //    )
 //    private Set<Role> roles = new HashSet<>();
 
-    private  String role="USER";
+    private  String role;
 
 }
