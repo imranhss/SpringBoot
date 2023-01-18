@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/user_save}" th:object="${user}" method="post">
+    <label>First Name</label>
+    <input type="text" th:field="*{firstName}"><br>
+
+    <label>Last Name </label>
+    <input type="text" th:field="*{lastName}"><br>
+
+
+    <label>Email</label>
+    <input type="email" th:field="*{email}"><br>
+
+
+    <label>Password</label>
+    <input type="password" th:field="*{password}"><br>
+
+
+
+    <div>
+        <label>Role</label>
+        <th:block th:each="role:${listRole}">
+            <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}">
+
+           --<small>[[$(role.description)]]</small><br>
+        </th:block>
+        <br>
+
+    </div>
+
+    <input type="submit" value="Save">
+
+
+</form>
+
+</body>
+</html>

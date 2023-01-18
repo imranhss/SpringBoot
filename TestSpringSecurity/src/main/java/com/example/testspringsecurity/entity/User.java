@@ -1,13 +1,17 @@
 package com.example.testspringsecurity.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id   // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto_increment
