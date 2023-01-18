@@ -1,0 +1,177 @@
+<div th:insert="header.html">...</div>
+<div th:insert="sidebar.html">...</div>
+
+        <!-- Start app main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-stats">
+                                <div class="card-stats-title">Order Statistics -
+                                    <div class="dropdown d-inline">
+                                        <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#"
+                                           id="orders-month">August</a>
+                                        <ul class="dropdown-menu dropdown-menu-sm">
+                                            <li class="dropdown-title">Select Month</li>
+                                            <li><a href="#" class="dropdown-item">January</a></li>
+                                            <li><a href="#" class="dropdown-item">February</a></li>
+                                            <li><a href="#" class="dropdown-item">March</a></li>
+                                            <li><a href="#" class="dropdown-item">April</a></li>
+                                            <li><a href="#" class="dropdown-item">May</a></li>
+                                            <li><a href="#" class="dropdown-item">June</a></li>
+                                            <li><a href="#" class="dropdown-item">July</a></li>
+                                            <li><a href="#" class="dropdown-item active">August</a></li>
+                                            <li><a href="#" class="dropdown-item">September</a></li>
+                                            <li><a href="#" class="dropdown-item">October</a></li>
+                                            <li><a href="#" class="dropdown-item">November</a></li>
+                                            <li><a href="#" class="dropdown-item">December</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-stats-items">
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count">24</div>
+                                        <div class="card-stats-item-label">Pending</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count">12</div>
+                                        <div class="card-stats-item-label">Shipping</div>
+                                    </div>
+                                    <div class="card-stats-item">
+                                        <div class="card-stats-item-count">23</div>
+                                        <div class="card-stats-item-label">Completed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Total Orders</h4>
+                                </div>
+                                <div class="card-body">
+                                    59
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-chart">
+                                <canvas id="balance-chart" height="80"></canvas>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Balance</h4>
+                                </div>
+                                <div class="card-body">
+                                    $187,13
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-chart">
+                                <canvas id="sales-chart" height="80"></canvas>
+                            </div>
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Sales</h4>
+                                </div>
+                                <div class="card-body">
+                                    4,732
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-deck">
+                    <div class="col-md-12 ">
+                        <div class="card ">
+                            <div class="card-body   col">
+                                <h3 class="text-center">All Room Details</h3>
+                                <!-- Default Table -->
+                                <table class="table ">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">RoomAddress</th>
+                                        <th scope="col">AvailableRoom</th>
+                                        <th scope="col">Gallery</th>
+                                        <th scope="col">RoomPrice</th>
+                                        <th scope="col">Discount</th>
+                                        <th scope="col">AdultNumber</th>
+                                        <th scope="col">ChildrenNumber</th>
+                                        <th scope="col">BedNumber</th>
+                                        <th scope="col">RoomSize</th>
+                                        <th scope="col">Availability</th>
+                                        <th scope="col">Details</th>
+                                        <th scope="col">Hotel</th>
+                                        <th scope="col">Room type</th>
+                                        <th scope="col">Room facilities</th>
+
+                                        <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="rList : ${roomlist}">
+                                        <td th:text="${rList.rId}"></td>
+                                        <td th:text="${rList.rTitle}"></td>
+                                        <td th:text="${rList.rDescription}"></td>
+                                        <td th:text="${rList.rRoomAddress}"></td>
+                                        <td th:text="${rList.rAvailableRoom}"></td>
+<!--                                        <td th:text="${rList.rGallery}"></td>-->
+                                       <td>  <img th:src="${rList.rGallery}" style="width: 50px; height: 60px;"></td>
+                                        <td th:text="${rList.rRoomPrice}"></td>
+                                        <td th:text="${rList.rDiscount}"></td>
+                                        <td th:text="${rList.rAdultNumber}"></td>
+                                        <td th:text="${rList.rChildrenNumber}"></td>
+                                        <td th:text="${rList.rBedNumber}"></td>
+                                        <td th:text="${rList.rRoomSize}"></td>
+                                        <td th:text="${rList.rAvailability}"></td>
+                                        <td th:text="${rList.rDetails}"></td>
+                                        <td th:text="${rList.hotel.hname}"></td>
+                                        <td th:text="${rList.roomtype.rtName}"></td>
+                                        <td th:text="${rList.roomFacilities.rfName}"></td>
+
+
+
+
+                                        <td>
+                                            <a th:href="@{'/delete_room/'+${rList.rId}}" class="btn btn-danger">Delete</a>
+                                            <a th:href="@{'/update_room/'+${rList.rId}}" class="btn btn-success">Update</a>
+                                        </td>
+                                    </tr>
+
+
+
+                                    </tbody>
+                                </table>
+
+
+
+
+                                <!-- End Default Table Example -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+        <!-- End app main Content -->
+
+
+<div th:insert=" footer.html">...</div>

@@ -6,6 +6,11 @@
     <div class="pagetitle">
         <h1 class="text-center">All Depratments</h1>
 
+        <div>
+            User: <span sec:authentication="name">NOT FOUND</span>
+            Spring Roles: <span sec:authentication="principal.authorities">NOT FOUND</span>
+        </div>
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -31,7 +36,11 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12 text-center">
-                                    <button th:if="${did!=null}" type="submit" class="btn btn-primary">Update</button>
+
+                                        <button  th:if="${did!=null}" type="submit" class="btn btn-primary">Update
+                                        </button>
+
+
                                     <button th:if="${did==null}" type="submit" class="btn btn-primary">Submit</button>
 
                                 </div>
@@ -58,7 +67,9 @@
                                 <td th:text="${dep.dCode}"></td>
 
                                 <td>
+<!--                                    <div sec:authorize=”hasRole(‘USER')”>-->
                                     <a th:href="@{'/dep_delete/'+${dep.did}}" class="btn btn-danger">Delete</a>
+<!--                                    </div>-->
                                     <a th:href="@{'/dep_edit/'+${dep.did}}" class="btn btn-warning">Edit</a>
                                 </td>
                             </tr>
