@@ -67,9 +67,9 @@
 
 													<div class="travel-select-icon">
 														<select class="form-select" aria-label="Default select example"
-																 id="getLid">
+																 id="getLid" name="lid" th:value="${lid}">
 
-															<option th:each="lList:${locationList}"  th:value="${lList.lid}" th:field="*{lid}"
+															<option th:each="lList:${locationList}"  th:value="${lList.lid}"
 																	th:text="${lList.lname}" id="li">--Select--</option>
 
 															<script th:inline="javascript">

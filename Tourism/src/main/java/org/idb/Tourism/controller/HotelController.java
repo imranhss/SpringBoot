@@ -37,7 +37,7 @@ public class HotelController {
 
 
     @RequestMapping("/h-form")
-    public String hotelForm(Model m){
+    public String hotelForm(Model m) {
         m.addAttribute("hotel", new Hotel());
         m.addAttribute("hotelList", hotelService.getAllHotel());
         m.addAttribute("locationList", locationService.getAllLocation());
@@ -46,15 +46,15 @@ public class HotelController {
     }
 
     @RequestMapping(value = "/hotel_save", method = RequestMethod.POST)
-    public  String hotelSave(@ModelAttribute("hotel") Hotel h, Model m){
+    public String hotelSave(@ModelAttribute("hotel") Hotel h, Model m) {
         hotelService.saveHotel(h);
         m.addAttribute("title", "Add Hotel");
-        m.addAttribute("message","Hotel add successful");
+        m.addAttribute("message", "Hotel add successful");
         return "redirect:/h-form";
     }
 
     @RequestMapping("/hotel_list")
-    public  String hotelList(Model m){
+    public String hotelList(Model m) {
         m.addAttribute("hotelList", hotelService.getAllHotel());
         m.addAttribute("locationList", locationService.getAllLocation());
         m.addAttribute("hFaciList", hotelFacilitiesService.getALlHFacilities());
@@ -63,7 +63,7 @@ public class HotelController {
 
 
     @RequestMapping("/update_hotel/{hid}")
-    public String updateHotel(@PathVariable("hid") Integer hid, Model m){
+    public String updateHotel(@PathVariable("hid") Integer hid, Model m) {
         Hotel h = hotelService.findHotelById(hid);
         m.addAttribute("hotel", h);
         m.addAttribute("locationList", locationService.getAllLocation());
@@ -72,37 +72,37 @@ public class HotelController {
     }
 
     @RequestMapping("/delete_hotel/{hid}")
-    public String deleteHotel(@PathVariable("hid") Integer hid){
+    public String deleteHotel(@PathVariable("hid") Integer hid) {
         hotelService.deleteHotelById(hid);
         return "redirect:/hotel_list";
     }
 
 
     @RequestMapping("/all-hotel")
-    public  String getAllHotel(){
+    public String getAllHotel() {
         System.out.println(iHotelRepo.findAllHotel());
 
         return "Hello";
     }
 
     @RequestMapping(value = "/hotel-by-location/", method = RequestMethod.POST)
-    public  String getHotelByLid(@ModelAttribute("hotel")Hotel h, Model m, @Param("lid") String lid){
+    public String getHotelByLid(@ModelAttribute("hotel") Hotel h, Model m, @Param("lid") String lid) {
 //        m.addAttribute("location", new Location());
         m.addAttribute("lid", lid);
-        int locId= Integer.parseInt(lid);
-        System.out.println(lid);
+        int locId = Integer.parseInt(lid);
+        System.out.println(lid + "++++++++++++++++++");
 
-        locationService.findLocationById(locId);
-        System.out.println(locationService.findLocationById(locId));
+        m.addAttribute("hotelList", iHotelRepo.findHotelByLocationId(locId));
+        System.out.println(iHotelRepo.findHotelByLocationId(locId));
 
         return "user-index";
     }
 
 
-
-    @RequestMapping(value = {"","/","/index","/home"})
-    public String userIndex(Model m){
+    @RequestMapping(value = {"", "/", "/index", "/home"})
+    public String userIndex(Model m) {
         m.addAttribute("locationList", locationService.getAllLocation());
+        m.addAttribute("hotel", new Hotel());
 
         return "user-index";
     }

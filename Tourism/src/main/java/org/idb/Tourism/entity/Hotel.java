@@ -61,7 +61,7 @@ public class Hotel {
     private String hphoto;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     Location location;
 
