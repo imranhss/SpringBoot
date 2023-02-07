@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
-<form th:action="@{/user_save}" th:object="${user}" method="post">
+<form th:action="@{/users/save}" th:object="${user}" method="post"
+      onsubmit="return checkEmailUnique(this);" enctype="multipart/form-data">
     <label>First Name</label>
     <input type="text" th:field="*{firstName}"><br>
 
@@ -15,29 +20,82 @@
 
 
     <label>Email</label>
-    <input type="email" th:field="*{email}"><br>
+    <input type="email" th:field="*{email}" id="email" name="email"><br>
 
 
     <label>Password</label>
     <input type="password" th:field="*{password}"><br>
 
 
-
     <div>
-        <label>Role</label>
-        <th:block th:each="role:${listRole}">
-            <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}">
-
-           --<small>[[$(role.description)]]</small><br>
-        </th:block>
+        <label>Photo</label>
+        <input type="file" id="imageFile" name="image" accept="image/png, image/jpg, image/jpeg">
+        <img th:src="@{/images/default-user.jpg}" id="thumbnail" alt="Photo Peview" height="100" width="80">
         <br>
 
     </div>
 
     <input type="submit" value="Save">
+    <input type="button" value="Cancel" id="buttonCancel">
 
 
 </form>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#buttonCancel").on("click", function () {
+            window.location = "[[@{/users}]]";
+        });
+
+        $("#imageFile").change(function () {
+            fileSize=this.files[0].size;
+            alert("File Sieze: "+fileSize)
+            if(fileSize > 1048576){
+                this.setCustomValidity("Image must be less then 1 MB")
+                this.reportValidity();
+            }
+            else{
+                this.setCustomValidity("");
+                showImageThumbnail(this);
+            }
+
+        });
+
+    });
+
+    function showImageThumbnail(fileInput) {
+        var file=fileInput.files[0];
+        var reader=new FileReader();
+        reader.onload=function(e){
+            $("#thumbnail").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+    }
+
+    function checkEmailUnique(form) {
+        url = "[[@{/users/check_email}]]";
+        userEmail = $("#email").val();
+        console.log(userEmail);
+        csrfValue = $("input[name='_csrf']").val()
+        params = {email: userEmail, _csrf: csrfValue};
+
+        $.post(url, params, function (response) {
+            console.log(response);
+            if (response == "OK") {
+                form.submit();
+            } else if (response == "DUPLICATE") {
+                alert("There is another user with this email:  " + userEmail);
+            }
+            alert("There is another user with this email:  " + response);
+        });
+
+        return false;
+    }
+
+</script>
 
 </body>
 </html>

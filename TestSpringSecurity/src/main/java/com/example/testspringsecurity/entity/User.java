@@ -24,8 +24,10 @@ public class User {
     private String firstName;
     @Column(length = 30, nullable = false)
     private String lastName;
+
     @Column(length = 64)
     private String photo;
+
     private boolean isEnabled=false;
 
     @ManyToMany
@@ -44,7 +46,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void  assRole(Role role){
+    public void  addRole(Role role){
         this.roles.add(role);
+    }
+
+    @Transient
+    public String getPhotosImagePath(){
+        if(id <0 || photo==null){
+            return "images/default-image.jpg";
+        }
+        return "/user-photos/"+this.id+"/"+this.photo;
     }
 }
