@@ -36,11 +36,10 @@
     <td th:text="${u.email}"></td>
     <td th:text="${u.roles}"></td>
 
-<!--    <td th:text="${u.roles.name}"></td>-->
 
     <td>
-<!--      <a th:href="@{'/emp_delete/'+${emp.eid}}" class="btn btn-danger">Delete</a>-->
-<!--      <a th:href="@{'/emp_edit/'+${emp.eid}}" class="btn btn-warning">Edit</a>-->
+      <a th:href="@{'/users/edit/'+${u.id}}" class="btn btn-danger" title="Edit this User">Edit</a>
+<!--      <a th:href="@{'/users/delete'+${u.id}}" class="btn btn-warning" title="Delete this User">Delete</a>-->
     </td>
   </tr>
 

@@ -12,6 +12,7 @@
 
 <form th:action="@{/users/save}" th:object="${user}" method="post"
       onsubmit="return checkEmailUnique(this);" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}" id="id">
     <label>First Name</label>
     <input type="text" th:field="*{firstName}"><br>
 
@@ -78,14 +79,15 @@
     function checkEmailUnique(form) {
         url = "[[@{/users/check_email}]]";
         userEmail = $("#email").val();
+        userId = $("#id").val();
         console.log(userEmail);
         csrfValue = $("input[name='_csrf']").val()
-        params = {email: userEmail, _csrf: csrfValue};
+        params = {id: userId, email: userEmail, _csrf: csrfValue};
 
         $.post(url, params, function (response) {
             console.log(response);
             if (response == "OK") {
-                form.submit();
+               form.submit();
             } else if (response == "DUPLICATE") {
                 alert("There is another user with this email:  " + userEmail);
             }

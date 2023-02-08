@@ -10,8 +10,24 @@ public class UserService {
 
     @Autowired
     IUserRepo iUserRepo;
-    public boolean isEmailUnique(String email){
+    public boolean isEmailUnique(Integer id,String email){
         User userByEmail=iUserRepo.getUserByEmail(email);
-        return  userByEmail==null;
+        if(userByEmail==null)
+            return true;
+
+        boolean isCreatedNew=(id==null);
+
+        if(isCreatedNew){
+            if(userByEmail !=null){
+                return  false;
+            }
+        }
+        else{
+            if(userByEmail.getId() !=id){
+                return  false;
+            }
+        }
+
+        return  true;
     }
 }
